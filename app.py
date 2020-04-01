@@ -14,7 +14,7 @@ def post():
 
     print(content, password, file=sys.stderr)
 
-    return render_template('index.html')
+    return render_template('done.html')
 
 if __name__ == "__main__":
     app.run(
