@@ -1,12 +1,12 @@
 version: "3"
 
 services:
-  api:
+  web:
     build: ./
     ports:
       - "5000:5000"
     environment:
-      - USER_PASSWORD=hogehoge
       - HOST=http://localhost:5000/
       - DATABASE_URL=sqlite:///db.sqlite3
       - SLACK_TOKEN=hogehoge
+      - PORT=5000
