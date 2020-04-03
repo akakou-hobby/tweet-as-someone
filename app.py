@@ -1,14 +1,16 @@
 from flask import Flask, render_template, request, jsonify
 from models import Register, Authenticater
+from tweet import tweet
 
 import sys, os
 
 app = Flask(__name__)
 
-USER_PASSWORD = os.environ['USER_PASSWORD']
 SLACK_TOKEN = os.environ['SLACK_TOKEN']
 
 HOST = os.environ['HOST']
+PORT = os.environ['PORT']
+PORT = int(PORT)
 
 @app.route("/", methods=['GET', 'POST'])
 def index():
@@ -26,6 +28,9 @@ def index():
         auth = Authenticater(token)
 
         if auth.auth():
+            print(f'content:{content}\ntoken:{token}\n')
+            tweet(content)
+
             msg = '送信しました'
             auth.destroy()
             token = ''
@@ -50,4 +55,4 @@ def generate_token():
 if __name__ == "__main__":
     app.run(
         host="0.0.0.0",
-        port=5000)
+        port=PORT)
