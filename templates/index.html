@@ -2,8 +2,8 @@
   <head>
     <title>あかこうとしてつぶやく</title>
     <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-    
-    <link rel='stylesheet' href='https://andybrewer.github.io/mvp/mvp.css'>
+
+   <link rel='stylesheet' href='https://andybrewer.github.io/mvp/mvp.css'>
   </head>
 </html>
 
@@ -14,12 +14,34 @@
     <form action='/post' method='post'>
       <label for='content'>ツイートしたい内容</label>
       <textarea name='content'></textarea>
+
+      <label for='token'>トークン</label>
+      <input id='token' name='token'></input>
+
       <label for='password'>パスワード</label>
-      <input name='password'></input>
-      <input type='submit' name='送信'></input>
-      <p>{{msg}}</p>  
+      <input id='password' name='password'></input>
+
+      <input id='submit' type='submit' name='送信'></input>
+      <p>{{msg}}</p>
     </form>
   </main>
+
+  <script>
+    const _submit = document.getElementById('submit')
+    const _password = document.getElementById('password')
+
+    _submit.onclick = () => {
+      const password = _password.value
+      localStorage['password'] = password
+    }
+
+    window.onload = () => {
+      const password = localStorage['password']
+      if (password) {
+        _password.value = password
+      }
+    }
+  </script>
 
 </body>
 
