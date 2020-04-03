@@ -2,7 +2,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import create_engine, Column, Integer, Text, Float, DateTime
 from sqlalchemy.orm import scoped_session, sessionmaker
 
-import random
+import secrets
 
 import datetime
 
@@ -59,8 +59,7 @@ class Register():
     def register(self):
         token = Token()
 
-        token_int = random.randrange(10**4, 10**5)
-        token.token = str(token_int)
+        token.token = secrets.token_urlsafe(32)
         
         token.created_at = datetime.datetime.utcnow()
 

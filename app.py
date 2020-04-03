@@ -6,33 +6,37 @@ import sys, os
 app = Flask(__name__)
 
 USER_PASSWORD = os.environ['USER_PASSWORD']
+HOST = 'http://localhost:5000/'
 
 
 @app.route("/", methods=['GET', 'POST'])
 def index():
     msg = ''
 
-    if request.method == 'POST':
+    if request.method == 'GET':
+        token = request.args.get("token", default='')
+
+    elif request.method == 'POST':
         content = request.form['content']
-        password = request.form['password']
         token = request.form['token']
 
         auth = Authenticater(token)
 
-        if auth.auth() and password == USER_PASSWORD:
+        if auth.auth():
             msg = '送信しました'
             auth.destroy()
+            token = ''
         else:
             msg = '認証に失敗しました'
-    
-    return render_template('index.html', msg=msg)
+
+    return render_template('index.html', msg=msg, token=token)
 
 
 @app.route("/generate_token")
 def generate_token():
     register = Register()
     token = register.register()
-    return token.token
+    return f'{HOST}?token={token.token}'
 
 if __name__ == "__main__":
     app.run(
