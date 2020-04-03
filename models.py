@@ -2,11 +2,13 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import create_engine, Column, Integer, Text, Float, DateTime
 from sqlalchemy.orm import scoped_session, sessionmaker
 
+import os
 import secrets
-
 import datetime
 
-ENGINE = create_engine('sqlite:///db.sqlite3', echo=True)
+DATABASE_URL = os.environ['DATABASE_URL']
+
+ENGINE = create_engine(DATABASE_URL, echo=True)
 Base = declarative_base()
 
 session = scoped_session(
