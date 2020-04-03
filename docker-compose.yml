@@ -12,5 +12,5 @@ services:
     environment:
       - USER_PASSWORD=hogehoge
       - HOST=http://localhost:5000/
-      - DATABASE_URL=sqlite:///db.sqlite3'
+      - DATABASE_URL=sqlite:///db.sqlite3
       - SLACK_TOKEN=hogehoge
