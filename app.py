@@ -6,8 +6,7 @@ import sys, os
 app = Flask(__name__)
 
 USER_PASSWORD = os.environ['USER_PASSWORD']
-HOST = 'http://localhost:5000/'
-
+HOST = os.environ['HOST']
 
 @app.route("/", methods=['GET', 'POST'])
 def index():

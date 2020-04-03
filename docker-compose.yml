@@ -11,3 +11,4 @@ services:
     command: python3 app.py
     environment:
       - USER_PASSWORD=hogehoge
+      - HOST=http://localhost:5000/
