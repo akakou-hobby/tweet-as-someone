@@ -3,8 +3,8 @@ from sqlalchemy import create_engine, Column, Integer, Text, Float, DateTime
 from sqlalchemy.orm import scoped_session, sessionmaker
 
 import random
-from datetime import datetime
 
+import datetime
 
 ENGINE = create_engine('sqlite:///db.sqlite3', echo=True)
 Base = declarative_base()
@@ -30,10 +30,11 @@ class Register():
 
     def register(self):
         token = Token()
+
         token_int = random.randrange(10**4, 10**5)
         token.token = str(token_int)
         
-        token.created_at = datetime.utcnow()
+        token.created_at = datetime.datetime.utcnow()
 
         session.add(token)
         session.commit()
@@ -47,8 +48,13 @@ class Authenticater():
         self.result = False
 
     def auth(self):
+        now = datetime.datetime.utcnow()
+
+        delta = datetime.timedelta(minutes=15)
+        allowed = now - delta
+
         hits = session.query(Token).\
-            filter(Token.token == self.token).\
+            filter(Token.token == self.token, Token.created_at >= allowed).\
             all()
 
         print(hits)
@@ -73,17 +79,6 @@ Base.metadata.create_all(ENGINE)
 
 
 if __name__=='__main__':
-    token = Token()
-    token.token = 'hello'
-    token.created_at = datetime.utcnow()
-
-    session.add(token)
-    session.commit()
-
-    auth = Authenticater('good morning')
-    print('result:', auth.auth())
-    auth.destroy()
-
     register = Register()
     token = register.register()
 
