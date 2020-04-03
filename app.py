@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 from models import Register, Authenticater
 
 import sys, os
@@ -6,6 +6,8 @@ import sys, os
 app = Flask(__name__)
 
 USER_PASSWORD = os.environ['USER_PASSWORD']
+SLACK_TOKEN = os.environ['SLACK_TOKEN']
+
 HOST = os.environ['HOST']
 
 @app.route("/", methods=['GET', 'POST'])
@@ -33,11 +35,17 @@ def index():
     return render_template('index.html', msg=msg, token=token)
 
 
-@app.route("/generate_token")
+@app.route("/generate_token", methods=['POST'])
 def generate_token():
+    if request.form['token'] != SLACK_TOKEN:
+        return jsonify({})
+
     register = Register()
     token = register.register()
-    return f'{HOST}?token={token.token}'
+
+    url = f'{HOST}?token={token.token}'
+
+    return jsonify({'text': url})
 
 if __name__ == "__main__":
     app.run(
