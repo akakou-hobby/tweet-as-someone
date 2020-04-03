@@ -57,8 +57,6 @@ class Authenticater():
             filter(Token.token == self.token, Token.created_at >= allowed).\
             all()
 
-        print(hits)
-        
         self.result = bool(hits)
         if self.result:
             self.hit = hits[0]
