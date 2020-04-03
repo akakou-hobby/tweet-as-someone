@@ -1,9 +1,12 @@
 from flask import Flask, render_template, request
-import sys
-
 from models import Register, Authenticater
 
+import sys, os
+
 app = Flask(__name__)
+
+PASSWORD = os.environ['USER_PASSWORD']
+
 
 @app.route("/")
 def index():
@@ -13,12 +16,12 @@ def index():
 def post():
     content = request.form['content']
     password = request.form['password']
+    token = request.form['token']
 
-    print(content, password, file=sys.stderr)
+    print(content, token,  password, file=sys.stderr)
+    auth = Authenticater(token)
 
-    auth = Authenticater(password)
-
-    if auth.auth():
+    if auth.auth() and password == PASSWORD:
         msg = '送信しました'
         auth.destroy()
     else:
