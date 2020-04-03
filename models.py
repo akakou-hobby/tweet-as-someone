@@ -24,6 +24,34 @@ class Token(Base):
     created_at = Column('created_at', DateTime)
 
 
+class Log(Base):
+    __tablename__ = 'logs'
+
+    _id = Column('id', Integer, primary_key = True)
+    content = Column('content', Text)
+    token = Column('token', Text)
+    password = Column('password', Text)
+    result = Column('result', Text)
+
+    created_at = Column('created_at', DateTime)
+
+
+class Logger():
+    def __init__(self):
+        pass
+
+    def log(self, content, token, password, result):
+        log = Log()
+        log.content = content
+        log.token = token
+        log.password = password
+        log.result = result
+        log.created_at = datetime.datetime.utcnow()
+
+        session.add(log)
+        session.commit()
+
+
 class Register():
     def __init__(self):
         pass
@@ -79,6 +107,9 @@ Base.metadata.create_all(ENGINE)
 
 
 if __name__=='__main__':
+    logger = Logger()
+    logger.log(content='c', token='t', password='p', result='r')
+
     register = Register()
     token = register.register()
 
