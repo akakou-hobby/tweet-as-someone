@@ -2,6 +2,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import create_engine, Column, Integer, Text, Float, DateTime
 from sqlalchemy.orm import scoped_session, sessionmaker
 
+import random
 from datetime import datetime
 
 
@@ -22,6 +23,22 @@ class Token(Base):
     token = Column('token', Text)
     created_at = Column('created_at', DateTime)
 
+
+class Register():
+    def __init__(self):
+        pass
+
+    def register(self):
+        token = Token()
+        token_int = random.randrange(10**4, 10**5)
+        token.token = str(token_int)
+        
+        token.created_at = datetime.utcnow()
+
+        session.add(token)
+        session.commit()
+
+        return token
 
 class Authenticater():
     def __init__(self, token):
@@ -51,6 +68,7 @@ class Authenticater():
         session.commit()
 
 
+
 Base.metadata.create_all(ENGINE)
 
 
@@ -66,10 +84,14 @@ if __name__=='__main__':
     print('result:', auth.auth())
     auth.destroy()
 
-    auth = Authenticater('hello')
+    register = Register()
+    token = register.register()
+
+    auth = Authenticater(token.token)
     print('result:', auth.auth())
     auth.destroy()
 
-    auth = Authenticater('hello')
+    auth = Authenticater(token.token)
     print('result:', auth.auth())
     auth.destroy()
+
