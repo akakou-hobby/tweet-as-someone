@@ -5,29 +5,28 @@ import sys, os
 
 app = Flask(__name__)
 
-PASSWORD = os.environ['USER_PASSWORD']
+USER_PASSWORD = os.environ['USER_PASSWORD']
 
 
-@app.route("/")
+@app.route("/", methods=['GET', 'POST'])
 def index():
-    return render_template('index.html', msg='')
+    msg = ''
 
-@app.route("/post", methods=['POST'])
-def post():
-    content = request.form['content']
-    password = request.form['password']
-    token = request.form['token']
+    if request.method == 'POST':
+        content = request.form['content']
+        password = request.form['password']
+        token = request.form['token']
 
-    print(content, token,  password, file=sys.stderr)
-    auth = Authenticater(token)
+        auth = Authenticater(token)
 
-    if auth.auth() and password == PASSWORD:
-        msg = '送信しました'
-        auth.destroy()
-    else:
-        msg = '認証に失敗しました'
-
+        if auth.auth() and password == USER_PASSWORD:
+            msg = '送信しました'
+            auth.destroy()
+        else:
+            msg = '認証に失敗しました'
+    
     return render_template('index.html', msg=msg)
+
 
 @app.route("/generate_token")
 def generate_token():
