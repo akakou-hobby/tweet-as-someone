@@ -2,8 +2,8 @@
   <head>
     <title>あかこうとしてつぶやく</title>
     <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-
-   <link rel='stylesheet' href='https://andybrewer.github.io/mvp/mvp.css'>
+    <link rel='stylesheet' href='https://andybrewer.github.io/mvp/mvp.css'>
+    <link rel='stylesheet' href='/static/main.css'>
   </head>
 </html>
 
@@ -21,36 +21,5 @@
       <p>{{msg | safe}}</p>
     </form>
   </main>
-
-  <style>
-  .hidden {
-    position: absolute !important;
-    clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
-    clip: rect(1px, 1px, 1px, 1px);
-    padding:0 !important;
-    border:0 !important;
-    height: 1px !important; 
-    width: 1px !important; 
-    overflow: hidden;
-  }
-  </style>
-
-  <script>
-    const _submit = document.getElementById('submit')
-    const _password = document.getElementById('password')
-
-    _submit.onclick = () => {
-      const password = _password.value
-      localStorage['password'] = password
-    }
-
-    window.onload = () => {
-      const password = localStorage['password']
-      if (password) {
-        _password.value = password
-      }
-    }
-  </script>
-
 </body>
 
