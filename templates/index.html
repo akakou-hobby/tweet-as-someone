@@ -1,13 +1,25 @@
-<p>Hello</p>
+<html>
+  <head>
+    <title>あかこうとしてつぶやく</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    
+    <link rel='stylesheet' href='https://andybrewer.github.io/mvp/mvp.css'>
+  </head>
+</html>
 
-<form action='/post' method='post'>
-  <label>ツイートしたい内容</label>
-  <textarea name='content'></textarea>
-  <br>
-  <label>パスワード</label>
-  <input name='password'></input>
-  <br>
-  <input type='submit' name=''>送信</input>
-</form>
+<body>
+  <main>
+    <h2>あかこうとして呟く</h2>
 
-<p>{{msg}}</p>
+    <form action='/post' method='post'>
+      <label for='content'>ツイートしたい内容</label>
+      <textarea name='content'></textarea>
+      <label for='password'>パスワード</label>
+      <input name='password'></input>
+      <input type='submit' name='送信'></input>
+      <p>{{msg}}</p>  
+    </form>
+  </main>
+
+</body>
+
