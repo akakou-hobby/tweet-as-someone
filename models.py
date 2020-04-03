@@ -19,8 +19,36 @@ class Token(Base):
     __tablename__ = 'tokens'
 
     _id = Column('id', Integer, primary_key = True)
-    text = Column('token', Text)
+    token = Column('token', Text)
     created_at = Column('created_at', DateTime)
+
+
+class Authenticater():
+    def __init__(self, token):
+        self.token = token
+        self.hit = None
+        self.result = False
+
+    def auth(self):
+        hits = session.query(Token).\
+            filter(Token.token == self.token).\
+            all()
+
+        print(hits)
+        
+        self.result = bool(hits)
+        if self.result:
+            self.hit = hits[0]
+
+        return self.result
+
+    def destroy(self):
+        if self.result:
+            session.query(Token).\
+                filter(Token._id == self.hit._id).\
+                delete()
+        
+        session.commit()
 
 
 Base.metadata.create_all(ENGINE)
@@ -28,8 +56,20 @@ Base.metadata.create_all(ENGINE)
 
 if __name__=='__main__':
     token = Token()
-    token.text = 'hello'
+    token.token = 'hello'
     token.created_at = datetime.utcnow()
 
     session.add(token)
     session.commit()
+
+    auth = Authenticater('good morning')
+    print('result:', auth.auth())
+    auth.destroy()
+
+    auth = Authenticater('hello')
+    print('result:', auth.auth())
+    auth.destroy()
+
+    auth = Authenticater('hello')
+    print('result:', auth.auth())
+    auth.destroy()
