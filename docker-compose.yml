@@ -1,0 +1,16 @@
+version: "3"
+
+services:
+  api:
+    build: ./
+    ports:
+      - "5000:5000"
+    volumes:
+      - ".:/app"
+    working_dir: /app
+    command: python3 app.py
+    environment:
+      - USER_PASSWORD=hogehoge
+      - HOST=http://localhost:5000/
+      - DATABASE_URL=sqlite:///db.sqlite3
+      - SLACK_TOKEN=hogehoge

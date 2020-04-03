@@ -1,0 +1,56 @@
+<html>
+  <head>
+    <title>あかこうとしてつぶやく</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+
+   <link rel='stylesheet' href='https://andybrewer.github.io/mvp/mvp.css'>
+  </head>
+</html>
+
+<body>
+  <main>
+    <h2>あかこうとして呟く</h2>
+
+    <form action='/' method='post'>
+      <label for='content'>ツイートしたい内容</label>
+      <textarea name='content'></textarea>
+
+      <input id='token' name='token' value='{{token}}' class='hidden'></input>
+
+      <input id='submit' type='submit' name='送信'></input>
+      <p>{{msg | safe}}</p>
+    </form>
+  </main>
+
+  <style>
+  .hidden {
+    position: absolute !important;
+    clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
+    clip: rect(1px, 1px, 1px, 1px);
+    padding:0 !important;
+    border:0 !important;
+    height: 1px !important; 
+    width: 1px !important; 
+    overflow: hidden;
+  }
+  </style>
+
+  <script>
+    const _submit = document.getElementById('submit')
+    const _password = document.getElementById('password')
+
+    _submit.onclick = () => {
+      const password = _password.value
+      localStorage['password'] = password
+    }
+
+    window.onload = () => {
+      const password = localStorage['password']
+      if (password) {
+        _password.value = password
+      }
+    }
+  </script>
+
+</body>
+
