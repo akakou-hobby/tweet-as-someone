@@ -14,6 +14,8 @@ def index():
 
     if request.method == 'GET':
         token = request.args.get("token", default='')
+        if not token:
+            msg = 'トークンがありません。<br>ツイートするにはあかこうにトークンをもらって下さい。'
 
     elif request.method == 'POST':
         content = request.form['content']
