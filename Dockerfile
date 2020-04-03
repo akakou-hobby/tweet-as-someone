@@ -1,5 +1,5 @@
 FROM python:rc-buster
-RUN pip3 install flask sqlalchemy psycopg2
+RUN pip3 install flask sqlalchemy psycopg2 tweepy
 
 ADD . /app
 WORKDIR /app

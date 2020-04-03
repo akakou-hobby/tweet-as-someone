@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, jsonify
 from models import Register, Authenticater
+from tweet import tweet
 
 import sys, os
 
@@ -27,6 +28,9 @@ def index():
         auth = Authenticater(token)
 
         if auth.auth():
+            print(f'content:{content}\ntoken:{token}\n')
+            tweet(content)
+
             msg = '送信しました'
             auth.destroy()
             token = ''
