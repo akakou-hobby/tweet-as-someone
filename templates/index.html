@@ -25,7 +25,7 @@
   <style>
   .hidden {
     position: absolute !important;
-    clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
+    clip: rect(1px 1px 1px 1px);
     clip: rect(1px, 1px, 1px, 1px);
     padding:0 !important;
     border:0 !important;
@@ -34,23 +34,5 @@
     overflow: hidden;
   }
   </style>
-
-  <script>
-    const _submit = document.getElementById('submit')
-    const _password = document.getElementById('password')
-
-    _submit.onclick = () => {
-      const password = _password.value
-      localStorage['password'] = password
-    }
-
-    window.onload = () => {
-      const password = localStorage['password']
-      if (password) {
-        _password.value = password
-      }
-    }
-  </script>
-
 </body>
 
