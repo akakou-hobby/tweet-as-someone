@@ -2,4 +2,4 @@
 誰かとして呟くサイト
 
 
-![tweet as someone](https://user-images.githubusercontent.com/22659592/218818118-d5a7967b-a5c4-4626-b383-371be43eb467.png)
+![tweet as someone](https://user-images.githubusercontent.com/22659592/218818438-13f2b9b3-acba-41dd-8571-5f7796124701.png)
