@@ -1,2 +1,2 @@
-# tweet-as-xxx
+# tweet-as-someone
 誰かとして呟くサイト
